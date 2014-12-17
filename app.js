@@ -99,7 +99,7 @@ app.delete('/sessions', function(req, res) {
 });
 
 
-//For visual display purposes
+//For JSON visual display purposes
 app.get('/parse', function(req, res){
   var url = "http://api.bart.gov/api/sched.aspx?cmd=depart&orig=ASHB&dest=CIVC&date=now&key=MW9S-E7SL-26DU-VV8V&b=2&a=2&l=1";
   request(url, function (err,response, body) {
@@ -125,8 +125,11 @@ app.get('/parse', function(req, res){
 
 app.get('/results', function(req, res){
   var params1 = req.query.origin;
+  console.log(params1);
   var params2 = req.query.destination;
-  var url='http://api.bart.gov/api/sched.aspx?cmd=depart&orig='+params1+'&dest'+params2+'&date=now&key=MW9S-E7SL-26DU-VV8V&b=2&a=2&l=1';
+  console.log(params2);
+  var url='http://api.bart.gov/api/sched.aspx?cmd=depart&orig='+params1+'&dest='+params2+'&date=now&key=MW9S-E7SL-26DU-VV8V&b=2&a=2&l=1';
+  console.log(url);
   request(url, function (err,response, body) {
     console.log('-------')
     console.log(body)
@@ -134,9 +137,9 @@ app.get('/results', function(req, res){
     parseString(body, function(err, data) {
 
     var bart = data.root; 
-    // console.log(bart.schedule)
-    // var leg = bart.schedule[0].request[0].trip[3].leg;
-    //   res.render('results', {bart:bart, leg:leg});
+    console.log(bart.schedule)
+    var leg = bart.schedule[0].request[0].trip[3].leg;
+      res.render('results', {bart:bart, leg:leg});
     });
   });
 });

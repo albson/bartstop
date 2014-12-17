@@ -1,48 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-body {
-    font-family: Arial;
-}
-div {
-    float: left;
-    border: 2px black solid;
-    margin: 10px;
-    padding:10px;
-    border-radius: 10px;
-}
-</style>
-	<title>BARTStop</title>
+   <title></title>
+
+   <style type="text/css">
+body { margin-top:30px; }
+#login-nav input { margin-bottom: 15px; }
+
+   </style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 </head>
 <body>
-<% if (!user) { %>
-<form name="login" method="POST" action="/sessions">
-	<label>username:<input type="text" name="username" autofocus></label>
+<div class="container">
+   <div class="row">
+      <div class="col-md-12">
+         <nav class="navbar navbar-default" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <% if(!user) { %>
+               <a class="navbar-brand" href="/">BARTStop</a>
+               <%} %>
+               <% if(user) { %>
+               <a class="navbar-brand" href="/">Welcome to BARTStop, <%=user.username %> </a>
+               <%} %>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav">
+               <% if(!user) { %>
+                  <li class="dropdown">
+                     <a class="dropdown-toggle" data-toggle="dropdown">Log In<b class="caret"></b></a>
+                     <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                        <li>
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <form class="form" role="form" name="login" method="POST" action="/sessions" accept-charset="UTF-8" id="login-nav">
+                                    <div class="form-group">
+                                       <label class="sr-only" for="exampleInputEmail2">Username</label>
+                                       <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Username" name="username"required>
+                                    </div>
+                                    <div class="form-group">
+                                       <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                       <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name="password"required>
+                                    </div>
+                                    <div class="form-group">
+                                       <button type="submit" class="btn btn-success btn-block">Log In</button>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </li>
+                     </ul>
+                  </li>
+                  <%} %>
+               <% if(user) { %>
+                  <li class="dropdown">
+                     <a class="dropdown-toggle" data-toggle="dropdown">Log Out<b class="caret"></b></a>
+                     <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                        <li>
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <form class="form" role="form" action ="/sessions?_method=DELETE" method="POST" accept-charset="UTF-8" id="login-nav">
+                                    <div class="form-group">
+                                       <button type="submit" class="btn btn-success btn-block">Log Out</button>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </li>
+                     </ul>
+                  </li>
+                  <%} %>
+               </ul>
 
-	<label>password:<input type="password" name="password"></label>
-	<input type="submit" value="Submit">
-</form>
-<p>
-<a href='/users/new'> Haven't registered yet? Sign up here! </a>
-<%} %>
+               <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                     <a class="dropdown-toggle" data-toggle="dropdown">Create Account<b class="caret"></b></a>
+                     <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                        <li>
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <form class="form" role="form" method="POST" action="/users" accept-charset="UTF-8" id="login-nav">
+                                    <div class="form-group">
+                                       <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                       <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Username" name="username" required>
+                                    </div>
+                                    <div class="form-group">
+                                       <label class="sr-only" for="exampleInputEmail2">Username</label>
+                                       <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                       <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                       <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name="password" required>
+                                    </div>
+                                    <div class="form-group">
+                                       <button type="submit" class="btn btn-success btn-block">Create Account</button>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </li>
+                     </ul>
+                  </li>
+               </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+         </nav>
+      </div>
+   </div>
 
-<% if(user) { %>
-<p> Hello, <%=user.username %> </p>
-<form action ="/sessions?_method=DELETE" method="POST">
-<input type="submit" value="Log out">
 
-<h1> THIS CONTENT will appear if logged in </h1>
-<%} %>
-<p>
-<b>Alerts</b>
-
-<h1>BARTStop</h1>
-<p>
-<h2>Bart and you're there.</h2>
-<div>
-<h3>Depart</h3>
-<br>
+ <div class = "row">
+ <div class = "col-sm-6">
+<h3>Departure Station</h3>
 <select name = "origin" form ="bartform">
   <option value="">Select Station</option>
   <option value="12th">12th St. Oakland City Center</option>
@@ -50,29 +130,126 @@ div {
   <option value="19th">19th St. Oakland</option>
   <option value="24th">24th St. Mission (SF)</option>
   <option value="ASHB">Ashby</option>
+  <option value="BALB">Balboa Park (SF)</option>
+  <option value="BAYF">Bay Fair (San Leandro)</option>
+  <option value="CAST">Castro Valley</option>
+  <option value="CIVC">Civic Center (SF)</option>
+  <option value="COLS">Coliseum/Oakland Airport</option>
+  <option value="COLM">Colma</option>
+  <option value="CONC">Concord</option>
+  <option value="DALY">Daly City</option>
+  <option value="DBRK">Downtown Berkeley</option>
+  <option value="DUBL">Dublin/Pleasanton</option>
+  <option value="DELN">El Cerrito del Norte</option>
+  <option value="EMBR">Embarcadero (SF)</option>
+  <option value="FRMT">Fremont</option>
+  <option value="FTVL">Fruitvale (Oakland)</option>
+  <option value="GLEN">Glen Park (SF)</option>
+  <option value="HAYW">Hayward</option>
+  <option value="lake">Lake Merritt (Oakland)</option>
+  <option value="mcar">MacArthur (Oakland)</option>
+  <option value="mlbr">Millbrae</option>
+  <option value="mont">Montgomery St. (SF)</option>
+  <option value="nbrk">North Berkeley</option>
+  <option value="ncon">North Concord/Martinez</option>
+  <option value="orin">Orinda</option>
+  <option value="pitt">Pittsburg/Bay Point</option>
+  <option value="phil">Pleasant Hill</option>
+  <option value="powl">Powell St. (SF)</option>
+  <option value="rich">Richmond</option>
+  <option value="rock">Rockridge (Oakland)</option>
+  <option value="sbrn">San Bruno</option>
+  <option value="sfia">San Francisco Int'l Airport</option>
+  <option value="sanl">San Leandro</option>
+  <option value="shay">South Hayward</option>
+  <option value="ssan">South San Francisco</option>
+  <option value="ucty">Union City</option>
+  <option value="wcrk">Walnut Creek</option>
+  <option value="wdub">West Dublin</option>
+  <option value="woak">West Oakland</option>
 </select>
-</div>
-
-<div>
-<h3>Arrival</h3>
+<h3>Arrival Station</h3>
 <select name = "destination" form = "bartform">
   <option value="">Select Station</option>
   <option value="12th">12th St. Oakland City Center</option>
   <option value="16th">16th St. Mission (SF)</option>
   <option value="19th">19th St. Oakland</option>
   <option value="24th">24th St. Mission (SF)</option>
-  <option value="CIVC">Civic Center</option>
+  <option value="ASHB">Ashby</option>
+  <option value="BALB">Balboa Park (SF)</option>
+  <option value="BAYF">Bay Fair (San Leandro)</option>
+  <option value="CAST">Castro Valley</option>
+  <option value="CIVC">Civic Center (SF)</option>
+  <option value="COLS">Coliseum/Oakland Airport</option>
+  <option value="COLM">Colma</option>
+  <option value="CONC">Concord</option>
+  <option value="DALY">Daly City</option>
+  <option value="DBRK">Downtown Berkeley</option>
+  <option value="DUBL">Dublin/Pleasanton</option>
+  <option value="DELN">El Cerrito del Norte</option>
+  <option value="EMBR">Embarcadero (SF)</option>
+  <option value="FRMT">Fremont</option>
+  <option value="FTVL">Fruitvale (Oakland)</option>
+  <option value="GLEN">Glen Park (SF)</option>
+  <option value="HAYW">Hayward</option>
+  <option value="lake">Lake Merritt (Oakland)</option>
+  <option value="mcar">MacArthur (Oakland)</option>
+  <option value="mlbr">Millbrae</option>
+  <option value="mont">Montgomery St. (SF)</option>
+  <option value="nbrk">North Berkeley</option>
+  <option value="ncon">North Concord/Martinez</option>
+  <option value="orin">Orinda</option>
+  <option value="pitt">Pittsburg/Bay Point</option>
+  <option value="phil">Pleasant Hill</option>
+  <option value="powl">Powell St. (SF)</option>
+  <option value="rich">Richmond</option>
+  <option value="rock">Rockridge (Oakland)</option>
+  <option value="sbrn">San Bruno</option>
+  <option value="sfia">San Francisco Int'l Airport</option>
+  <option value="sanl">San Leandro</option>
+  <option value="shay">South Hayward</option>
+  <option value="ssan">South San Francisco</option>
+  <option value="ucty">Union City</option>
+  <option value="wcrk">Walnut Creek</option>
+  <option value="wdub">West Dublin</option>
+  <option value="woak">West Oakland</option>
 </select>
 <p>
 <form action="/results" method="GET" id="bartform">
   <input type="submit">
 </form>
+
 </div>
-<br>
-<p>
-<img src = "http://www.bart.gov/sites/default/files/images/news/bart-sfo-airport-station.jpg">
-<% if(user) { %>
-<h1> THIS CONTENT will appear if logged in </h1>
-<%} %>
+
+<div class = "row">
+ <div class = "col-sm-6">
+ <img src ="http://www.racingmix.com/wp-content/uploads/2011/10/Rockridge-BART-Train-640.jpg">
+    </div>
+ </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js">
+   $(document).ready(function(){
+    //Handles menu drop down
+    $('.dropdown-menu').find('form').click(function (e) {
+        e.stopPropagation();
+    });
+});
+
+</script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
