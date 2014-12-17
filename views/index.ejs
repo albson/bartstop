@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    font-family: Arial;
+}
+div {
+    float: left;
+    border: 2px black solid;
+    margin: 10px;
+    padding:10px;
+    border-radius: 10px;
+}
+</style>
+	<title>BARTStop</title>
+</head>
+<body>
+<% if (!user) { %>
+<form name="login" method="POST" action="/sessions">
+	<label>username:<input type="text" name="username" autofocus></label>
+
+	<label>password:<input type="password" name="password"></label>
+	<input type="submit" value="Submit">
+</form>
+<p>
+<a href='/users/new'> Haven't registered yet? Sign up here! </a>
+<%} %>
+
+<% if(user) { %>
+<p> Hello, <%=user.username %> </p>
+<form action ="/sessions?_method=DELETE" method="POST">
+<input type="submit" value="Log out">
+
+<h1> THIS CONTENT will appear if logged in </h1>
+<%} %>
+<p>
+<b>Alerts</b>
+
+<h1>BARTStop</h1>
+<p>
+<h2>Bart and you're there.</h2>
+<div>
+<h3>Depart</h3>
+<br>
+<select name = "origin" form ="bartform">
+  <option value="">Select Station</option>
+  <option value="12th">12th St. Oakland City Center</option>
+  <option value="16th">16th St. Mission (SF)</option>
+  <option value="19th">19th St. Oakland</option>
+  <option value="24th">24th St. Mission (SF)</option>
+  <option value="ASHB">Ashby</option>
+</select>
+</div>
+
+<div>
+<h3>Arrival</h3>
+<select name = "destination" form = "bartform">
+  <option value="">Select Station</option>
+  <option value="12th">12th St. Oakland City Center</option>
+  <option value="16th">16th St. Mission (SF)</option>
+  <option value="19th">19th St. Oakland</option>
+  <option value="24th">24th St. Mission (SF)</option>
+  <option value="CIVC">Civic Center</option>
+</select>
+<p>
+<form action="/results" method="GET" id="bartform">
+  <input type="submit">
+</form>
+</div>
+<br>
+<p>
+<img src = "http://www.bart.gov/sites/default/files/images/news/bart-sfo-airport-station.jpg">
+<% if(user) { %>
+<h1> THIS CONTENT will appear if logged in </h1>
+<%} %>
+</body>
+</html>
