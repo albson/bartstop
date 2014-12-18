@@ -6,9 +6,7 @@
    <style type="text/css">
 body { margin-top:30px;}
 #login-nav input { margin-bottom: 15px; }
-
 #myCarousel{ border: 10px solid black;border-radius:10px; }
-
 #routeset { border: 10px solid black;border-radius:10px; padding:10px;}
 
    </style>
@@ -38,7 +36,7 @@ body { margin-top:30px;}
                <a class="navbar-brand" href="/">Welcome to BARTStop, <%=user.username %> </a>
                <%} %>
                <% if(user) { %>
-               <a class="navbar-brand" href="/profile">Favorite Routes </a>
+               <a class="navbar-brand" href="/users/profile">Favorite Routes </a>
                <%} %>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -135,10 +133,10 @@ body { margin-top:30px;}
 <h3>Departure Station</h3>
 <select name = "origin" form ="bartform">
   <option value="">Select Station</option>
-  <option value="12th">12th St. Oakland City Center</option>
-  <option value="16th">16th St. Mission (SF)</option>
-  <option value="19th">19th St. Oakland</option>
-  <option value="24th">24th St. Mission (SF)</option>
+  <option value="12TH">12th St. Oakland City Center</option>
+  <option value="16TH">16th St. Mission (SF)</option>
+  <option value="19TH">19th St. Oakland</option>
+  <option value="24TH">24th St. Mission (SF)</option>
   <option value="ASHB">Ashby</option>
   <option value="BALB">Balboa Park (SF)</option>
   <option value="BAYF">Bay Fair (San Leandro)</option>
@@ -156,35 +154,35 @@ body { margin-top:30px;}
   <option value="FTVL">Fruitvale (Oakland)</option>
   <option value="GLEN">Glen Park (SF)</option>
   <option value="HAYW">Hayward</option>
-  <option value="lake">Lake Merritt (Oakland)</option>
-  <option value="mcar">MacArthur (Oakland)</option>
-  <option value="mlbr">Millbrae</option>
-  <option value="mont">Montgomery St. (SF)</option>
-  <option value="nbrk">North Berkeley</option>
-  <option value="ncon">North Concord/Martinez</option>
-  <option value="orin">Orinda</option>
-  <option value="pitt">Pittsburg/Bay Point</option>
-  <option value="phil">Pleasant Hill</option>
-  <option value="powl">Powell St. (SF)</option>
-  <option value="rich">Richmond</option>
-  <option value="rock">Rockridge (Oakland)</option>
-  <option value="sbrn">San Bruno</option>
-  <option value="sfia">San Francisco Int'l Airport</option>
-  <option value="sanl">San Leandro</option>
-  <option value="shay">South Hayward</option>
-  <option value="ssan">South San Francisco</option>
-  <option value="ucty">Union City</option>
-  <option value="wcrk">Walnut Creek</option>
-  <option value="wdub">West Dublin</option>
-  <option value="woak">West Oakland</option>
+  <option value="LAKE">Lake Merritt (Oakland)</option>
+  <option value="MCAR">MacArthur (Oakland)</option>
+  <option value="MLBR">Millbrae</option>
+  <option value="MONT">Montgomery St. (SF)</option>
+  <option value="NBRK">North Berkeley</option>
+  <option value="NCON">North Concord/Martinez</option>
+  <option value="ORIN">Orinda</option>
+  <option value="PITT">Pittsburg/Bay Point</option>
+  <option value="PHIL">Pleasant Hill</option>
+  <option value="POWL">Powell St. (SF)</option>
+  <option value="RICH">Richmond</option>
+  <option value="ROCK">Rockridge (Oakland)</option>
+  <option value="SBRN">San Bruno</option>
+  <option value="SFIA">San Francisco Int'l Airport</option>
+  <option value="SANL">San Leandro</option>
+  <option value="SHAY">South Hayward</option>
+  <option value="SSAN">South San Francisco</option>
+  <option value="UCTY">Union City</option>
+  <option value="WCRK">Walnut Creek</option>
+  <option value="WDBU">West Dublin</option>
+  <option value="WOAK">West Oakland</option>
 </select>
 <h3>Arrival Station</h3>
 <select name = "destination" form = "bartform">
   <option value="">Select Station</option>
-  <option value="12th">12th St. Oakland City Center</option>
-  <option value="16th">16th St. Mission (SF)</option>
-  <option value="19th">19th St. Oakland</option>
-  <option value="24th">24th St. Mission (SF)</option>
+  <option value="12TH">12th St. Oakland City Center</option>
+  <option value="16TH">16th St. Mission (SF)</option>
+  <option value="19TH">19th St. Oakland</option>
+  <option value="24TH">24th St. Mission (SF)</option>
   <option value="ASHB">Ashby</option>
   <option value="BALB">Balboa Park (SF)</option>
   <option value="BAYF">Bay Fair (San Leandro)</option>
@@ -202,30 +200,30 @@ body { margin-top:30px;}
   <option value="FTVL">Fruitvale (Oakland)</option>
   <option value="GLEN">Glen Park (SF)</option>
   <option value="HAYW">Hayward</option>
-  <option value="lake">Lake Merritt (Oakland)</option>
-  <option value="mcar">MacArthur (Oakland)</option>
-  <option value="mlbr">Millbrae</option>
-  <option value="mont">Montgomery St. (SF)</option>
-  <option value="nbrk">North Berkeley</option>
-  <option value="ncon">North Concord/Martinez</option>
-  <option value="orin">Orinda</option>
-  <option value="pitt">Pittsburg/Bay Point</option>
-  <option value="phil">Pleasant Hill</option>
-  <option value="powl">Powell St. (SF)</option>
-  <option value="rich">Richmond</option>
-  <option value="rock">Rockridge (Oakland)</option>
-  <option value="sbrn">San Bruno</option>
-  <option value="sfia">San Francisco Int'l Airport</option>
-  <option value="sanl">San Leandro</option>
-  <option value="shay">South Hayward</option>
-  <option value="ssan">South San Francisco</option>
-  <option value="ucty">Union City</option>
-  <option value="wcrk">Walnut Creek</option>
-  <option value="wdub">West Dublin</option>
-  <option value="woak">West Oakland</option>
+  <option value="LAKE">Lake Merritt (Oakland)</option>
+  <option value="MCAR">MacArthur (Oakland)</option>
+  <option value="MLBR">Millbrae</option>
+  <option value="MONT">Montgomery St. (SF)</option>
+  <option value="NBRK">North Berkeley</option>
+  <option value="NCON">North Concord/Martinez</option>
+  <option value="ORIN">Orinda</option>
+  <option value="PITT">Pittsburg/Bay Point</option>
+  <option value="PHIL">Pleasant Hill</option>
+  <option value="POWL">Powell St. (SF)</option>
+  <option value="RICH">Richmond</option>
+  <option value="ROCK">Rockridge (Oakland)</option>
+  <option value="SBRN">San Bruno</option>
+  <option value="SFIA">San Francisco Int'l Airport</option>
+  <option value="SANL">San Leandro</option>
+  <option value="SHAY">South Hayward</option>
+  <option value="SSAN">South San Francisco</option>
+  <option value="UCTY">Union City</option>
+  <option value="WCRK">Walnut Creek</option>
+  <option value="WDBU">West Dublin</option>
+  <option value="WOAK">West Oakland</option>
 </select>
 <p>
-<form action="/results" method="GET" id="bartform">
+<form action="/users/results" method="GET" id="bartform">
   <input type="submit">
 </form>
 </div>

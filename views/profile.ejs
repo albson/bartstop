@@ -7,21 +7,18 @@
 
 <h1> Your Favorite Routes </h1>
 <% for (var i=0; i < routes.length; i++) { %>
-<li>
-<a href= "/results?origin=<%=routes[i].origin%>&destination=<%=routes[i].destination%>">
+<p>
+<a href= "/users/results?origin=<%=routes[i].origin%>&destination=<%=routes[i].destination%>">
 
-<%=routes[i].origin%>
-<%=routes[i].destination%>
+<%=routes[i].origin%> -
+<%=routes[i].destination%> Route
 </a>
-<div>
+
 	<form action="/routes/<%=routes[i].id%>?_method=DELETE" method="POST">
 		<input type="submit" value="Delete">
 	</form>
-</div>
 
 
-
-</li>
 <% } %>
 </body>
 </html>

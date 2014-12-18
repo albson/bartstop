@@ -83,12 +83,12 @@ app.post('/users', function(req, res) {
 })
 
 
-app.get('/failure', function(req,res) {
+app.get('/users/failure', function(req,res) {
   res.send('Does not recognize authentication. Please click back on your browser and try again.')
 });
 
 app.post('/sessions', passport.authenticate('local', 
-  {failureRedirect: '/failure'}), function(req, res) {
+  {failureRedirect: '/users/failure'}), function(req, res) {
     res.redirect('/');
 });
 
@@ -97,32 +97,7 @@ app.delete('/sessions', function(req, res) {
 	res.redirect('/');
 });
 
-
-//For JSON visual display purposes
-app.get('/parse', function(req, res){
-  var url = "http://api.bart.gov/api/sched.aspx?cmd=depart&orig=ASHB&dest=CIVC&date=now&key=MW9S-E7SL-26DU-VV8V&b=2&a=2&l=1";
-  request(url, function (err,response, body) {
-    parseString(body, function(err, data) { 
-      console.log(data);
-      res.send(data);
-    });
-  });
-});
-
-
-
-// app.get('/results', function(req, res){
-//   var url = "http://api.bart.gov/api/sched.aspx?cmd=depart&orig=ASHB&dest=CIVC&date=now&key=MW9S-E7SL-26DU-VV8V&b=2&a=2&l=1";
-//   request(url, function (err,response, body) {
-//     parseString(body, function(err, data) {
-//     var bart = data.root; 
-//     var leg = bart.schedule[0].request[0].trip[3].leg;
-//       res.render('results', {bart:bart, leg:leg});
-//     });
-//   });
-// });
-
-app.get('/results', function(req, res){
+app.get('/users/results', function(req, res){
   var params1 = req.query.origin;
   var params2 = req.query.destination;
   var url='http://api.bart.gov/api/sched.aspx?cmd=depart&orig='+params1+'&dest='+params2+'&date=now&key=MW9S-E7SL-26DU-VV8V&b=2&a=2&l=1';
@@ -136,7 +111,7 @@ app.get('/results', function(req, res){
 });
 
 
-app.get('/profile', function(req,res){
+app.get('/users/profile', function(req,res){
   console.log(req.user)
   var user= req.user
   db.query('SELECT * FROM routes WHERE user_id = $1', [req.user.id], function(err,dbRes){
@@ -146,11 +121,10 @@ app.get('/profile', function(req,res){
     })
 })
 
-
 app.post('/routes/create', function(req, res) {
   db.query('INSERT INTO routes (origin, destination, user_id) VALUES ($1, $2, $3)', [req.body.origin, req.body.destination, req.user.id], function(err, dbRes) {
     if (!err) {
-    res.redirect('/');
+    res.redirect('/users/profile');
     }
     else {
       console.log(err)
@@ -162,14 +136,19 @@ app.delete('/routes/:id', function(req, res) {
   console.log(req.params.id)
   db.query('DELETE FROM routes WHERE id = $1', [req.params.id], function(err, dbRes) {
     if (!err) {
-      res.redirect('/profile');
+      res.redirect('/users/profile');
     }
   })
 });
 
 
-
-
-
-
-
+//For JSON visual display purposes. Change URL to see particular API
+// app.get('/parse', function(req, res){
+//   var url = "http://api.bart.gov/api/sched.aspx?cmd=depart&orig=ASHB&dest=CIVC&date=now&key=MW9S-E7SL-26DU-VV8V&b=2&a=2&l=1";
+//   request(url, function (err,response, body) {
+//     parseString(body, function(err, data) { 
+//       console.log(data);
+//       res.send(data);
+//     });
+//   });
+// });
