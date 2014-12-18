@@ -158,6 +158,17 @@ app.post('/routes/create', function(req, res) {
   })
 })
 
+app.delete('/routes/:id', function(req, res) {
+  console.log(req.params.id)
+  db.query('DELETE FROM routes WHERE id = $1', [req.params.id], function(err, dbRes) {
+    if (!err) {
+      res.redirect('/profile');
+    }
+  })
+});
+
+
+
 
 
 
