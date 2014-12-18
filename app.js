@@ -63,13 +63,10 @@ var localStrategy = new LocalStrategy(
 
 passport.use(localStrategy);
 
-app.get('/', function(req,res){
-  if (req.user) {
-  // db query 
-  
-  }
 
-	res.render('index', {user: req.user});
+
+app.get('/', function(req,res){
+  res.render('index', {user: req.user});
 })
 
 app.get('/users/new', function(req,res) {
@@ -85,9 +82,6 @@ app.post('/users', function(req, res) {
 	})
 })
 
-// app.get('/sessions/new', function(req,res) {
-// 	res.render('sessions/new')
-// });
 
 app.get('/failure', function(req,res) {
   res.send('Does not recognize authentication. Please click back on your browser and try again.')
@@ -141,27 +135,30 @@ app.get('/results', function(req, res){
   });
 });
 
-// app.post('/routes/create', function(req, res) {
-//   // req.user.id
-//   // req.body.origin
-//   // req.body.destination
 
-//   // db.query insert into routes blah blah blah
+app.get('/profile', function(req,res){
+  console.log(req.user)
+  var user= req.user
+  db.query('SELECT * FROM routes WHERE user_id = $1', [req.user.id], function(err,dbRes){
+    if(!err) {
+      res.render('profile', {user:user, routes: dbRes.rows})
+    }
+    })
+})
 
-//   // if successful, redirect to /
-
-// });
 
 app.post('/routes/create', function(req, res) {
   db.query('INSERT INTO routes (origin, destination, user_id) VALUES ($1, $2, $3)', [req.body.origin, req.body.destination, req.user.id], function(err, dbRes) {
     if (!err) {
-    res.send('Confirmed');
+    res.redirect('/');
     }
     else {
       console.log(err)
     }
   })
 })
+
+
 
 
 
