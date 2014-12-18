@@ -64,6 +64,11 @@ var localStrategy = new LocalStrategy(
 passport.use(localStrategy);
 
 app.get('/', function(req,res){
+  if (req.user) {
+  // db query 
+  
+  }
+
 	res.render('index', {user: req.user});
 })
 
@@ -125,21 +130,38 @@ app.get('/parse', function(req, res){
 
 app.get('/results', function(req, res){
   var params1 = req.query.origin;
-  console.log(params1);
   var params2 = req.query.destination;
-  console.log(params2);
   var url='http://api.bart.gov/api/sched.aspx?cmd=depart&orig='+params1+'&dest='+params2+'&date=now&key=MW9S-E7SL-26DU-VV8V&b=2&a=2&l=1';
-  console.log(url);
   request(url, function (err,response, body) {
-    console.log('-------')
-    console.log(body)
-    console.log('-------')
     parseString(body, function(err, data) {
-
     var bart = data.root; 
-    console.log(bart.schedule)
     var leg = bart.schedule[0].request[0].trip[3].leg;
       res.render('results', {bart:bart, leg:leg});
     });
   });
 });
+
+// app.post('/routes/create', function(req, res) {
+//   // req.user.id
+//   // req.body.origin
+//   // req.body.destination
+
+//   // db.query insert into routes blah blah blah
+
+//   // if successful, redirect to /
+
+// });
+
+app.post('/routes/create', function(req, res) {
+  db.query('INSERT INTO routes (origin, destination, user_id) VALUES ($1, $2, $3)', [req.body.origin, req.body.destination, req.user.id], function(err, dbRes) {
+    if (!err) {
+    res.send('Confirmed');
+    }
+    else {
+      console.log(err)
+    }
+  })
+})
+
+
+

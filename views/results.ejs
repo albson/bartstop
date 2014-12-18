@@ -43,6 +43,15 @@ div {
 </div>
 
 <%} %>
+<p>
 
+<div>
+	<form action="/routes/create" method="POST">
+		<input type="hidden" name="origin" value="<%=bart.schedule[0].request[0].trip[3].$.origin%>">
+		<input type="hidden" name="destination" value="<%=bart.schedule[0].request[0].trip[3].$.destination%>">
+
+		<input type="submit" value="Save Route">
+	</form>
+</div>
 </body>
 </html>
