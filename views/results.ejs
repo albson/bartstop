@@ -38,7 +38,7 @@ h1 {
 
 <%if (user) {%>
 <div>
-	<form action="/routes/create" method="POST">
+	<form action="/routes" method="POST">
 		<input type="hidden" name="origin" value="<%=bart.schedule[0].request[0].trip[3].$.origin%>">
 		<input type="hidden" name="destination" value="<%=bart.schedule[0].request[0].trip[3].$.destination%>">
 

@@ -110,7 +110,7 @@ app.delete('/users/sessions', function(req, res) {
 	res.redirect('/');
 });
 
-app.get('/users/results', function(req, res){
+app.get('/results', function(req, res){
   var params1 = req.query.origin;
   var params2 = req.query.destination;
   var url='http://api.bart.gov/api/sched.aspx?cmd=depart&orig='+params1+'&dest='+params2+'&date=now&key=MW9S-E7SL-26DU-VV8V&b=2&a=2&l=1';
@@ -135,7 +135,7 @@ app.get('/users/profile', function(req,res){
     })
 })
 
-app.post('/routes/create', function(req, res) {
+app.post('/routes', function(req, res) {
   db.query('INSERT INTO routes (origin, destination, user_id) VALUES ($1, $2, $3)', [req.body.origin, req.body.destination, req.user.id], function(err, dbRes) {
     if (!err) {
     res.redirect('/users/profile');
