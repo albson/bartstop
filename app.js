@@ -63,30 +63,18 @@ var localStrategy = new LocalStrategy(
 
 passport.use(localStrategy);
 
-
-
-// app.get('/', function(req,res){
-//   res.render('index', {user: req.user});
-// })
-
+//Render home page with Alert API
 app.get('/', function(req, res){
-
   var url='http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=MW9S-E7SL-26DU-VV8V&date=today';
   request(url, function (err,response, body) {
     parseString(body, function(err, data) {
     var alert = data.root.bsa[0]; 
-    console.log(root.bsa);
       res.render('index', {user:req.user, alert:alert});
     });
   });
 });
 
-
-app.get('/users/new', function(req,res) {
-  res.render('users/new');
-})
-
-
+//Creating new account
 app.post('/users', function(req, res) {
   db.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3)', [req.body.username, req.body.email, req.body.password], function(err, dbRes) {
     if (!err) {
@@ -95,21 +83,24 @@ app.post('/users', function(req, res) {
   })
 })
 
-
+//This user will reach this route if authentication fails
 app.get('/users/failure', function(req,res) {
   res.send('Does not recognize authentication. Please click back on your browser and try again.')
 });
 
+//Authentication route when user puts their log-in information
 app.post('/users/sessions', passport.authenticate('local', 
   {failureRedirect: '/users/failure'}), function(req, res) {
     res.redirect('/');
 });
 
+//Logged-in user ends session
 app.delete('/users/sessions', function(req, res) {
   req.logout();
   res.redirect('/');
 });
 
+//Render XML to JSON API route results
 app.get('/results', function(req, res){
   var params1 = req.query.origin;
   var params2 = req.query.destination;
@@ -124,9 +115,8 @@ app.get('/results', function(req, res){
   });
 });
 
-
-app.get('/users/:id', function(req,res){
-  
+//Displays user's saved routes
+app.get('/users/:id', function(req,res){  
   db.query('SELECT * FROM routes WHERE user_id = $1', [req.user.id], function(err,dbRes){
     if(!err) {
       res.render('profile', {user:req.user, routes: dbRes.rows})
@@ -134,6 +124,7 @@ app.get('/users/:id', function(req,res){
     })
 })
 
+//Adds new routes to user's saved routes list
 app.post('/routes', function(req, res) {
   db.query('INSERT INTO routes (origin, destination, user_id) VALUES ($1, $2, $3)', [req.body.origin, req.body.destination, req.user.id], function(err, dbRes) {
     if (!err) {
@@ -145,6 +136,7 @@ app.post('/routes', function(req, res) {
   })
 })
 
+//Deletes a user's saved route
 app.delete('/routes/:id', function(req, res) {
   db.query('DELETE FROM routes WHERE id = $1', [req.params.id], function(err, dbRes) {
     if (!err) {
