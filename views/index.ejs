@@ -5,6 +5,7 @@
 
    <style type="text/css">
 body { margin-top:30px;}
+.c
 #login-nav input { margin-bottom: 15px; }
 #myCarousel{ border: 10px solid black;border-radius:10px; }
 #routeset { border: 10px solid black;border-radius:10px; padding:10px;}
@@ -49,7 +50,7 @@ body { margin-top:30px;}
                         <li>
                            <div class="row">
                               <div class="col-md-12">
-                                 <form class="form" role="form" name="login" method="POST" action="/sessions" accept-charset="UTF-8" id="login-nav">
+                                 <form class="form" role="form" name="login" method="POST" action="/users/sessions" accept-charset="UTF-8" id="login-nav">
                                     <div class="form-group">
                                        <label class="sr-only" for="exampleInputEmail2">Username</label>
                                        <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Username" name="username"required>
@@ -75,7 +76,7 @@ body { margin-top:30px;}
                         <li>
                            <div class="row">
                               <div class="col-md-12">
-                                 <form class="form" role="form" action ="/sessions?_method=DELETE" method="POST" accept-charset="UTF-8" id="login-nav">
+                                 <form class="form" role="form" action ="/users/sessions?_method=DELETE" method="POST" accept-charset="UTF-8" id="login-nav">
                                     <div class="form-group">
                                        <button type="submit" class="btn btn-success btn-block">Log Out</button>
                                     </div>
@@ -130,7 +131,10 @@ body { margin-top:30px;}
 
  <div class = "row">
  <div class = "col-sm-6" id= "routeset">
-<h3>Departure Station</h3>
+ <h3><%=alert.description[0] %></h3>
+ <br><br><br><br><br><br>
+ 
+<h2>Departure Station</h2>
 <select name = "origin" form ="bartform">
   <option value="">Select Station</option>
   <option value="12TH">12th St. Oakland City Center</option>
@@ -176,7 +180,7 @@ body { margin-top:30px;}
   <option value="WDBU">West Dublin</option>
   <option value="WOAK">West Oakland</option>
 </select>
-<h3>Arrival Station</h3>
+<h2>Arrival Station</h2>
 <select name = "destination" form = "bartform">
   <option value="">Select Station</option>
   <option value="12TH">12th St. Oakland City Center</option>
@@ -231,7 +235,7 @@ body { margin-top:30px;}
  <div class = "row">
  <div class = "col-sm-6">
 
-<div id="myCarousel" class="carousel slide" data-interval="5000">
+<div id="myCarousel" class="carousel slide" data-interval="3000">
   <div class="carousel-inner">
     <div class="item active">
        <img src ="http://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/FerryBuildingEmbarcaderoBayBridge.JPG/640px-FerryBuildingEmbarcaderoBayBridge.JPG">
@@ -267,17 +271,6 @@ body { margin-top:30px;}
 
 </div>
  </div>
-
-
-
- <div class = "row">
- <div class = "col-sm-6">
-
-
-
- </div>
- </div>
-
 
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js">

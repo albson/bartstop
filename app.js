@@ -65,9 +65,22 @@ passport.use(localStrategy);
 
 
 
-app.get('/', function(req,res){
-  res.render('index', {user: req.user});
-})
+// app.get('/', function(req,res){
+//   res.render('index', {user: req.user});
+// })
+
+app.get('/', function(req, res){
+
+  var url='http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=MW9S-E7SL-26DU-VV8V&date=today';
+  request(url, function (err,response, body) {
+    parseString(body, function(err, data) {
+    var alert = data.root.bsa[0]; 
+    console.log(root.bsa);
+      res.render('index', {user:req.user, alert:alert});
+    });
+  });
+});
+
 
 app.get('/users/new', function(req,res) {
 	res.render('users/new');
@@ -87,12 +100,12 @@ app.get('/users/failure', function(req,res) {
   res.send('Does not recognize authentication. Please click back on your browser and try again.')
 });
 
-app.post('/sessions', passport.authenticate('local', 
+app.post('/users/sessions', passport.authenticate('local', 
   {failureRedirect: '/users/failure'}), function(req, res) {
     res.redirect('/');
 });
 
-app.delete('/sessions', function(req, res) {
+app.delete('/users/sessions', function(req, res) {
 	req.logout();
 	res.redirect('/');
 });
@@ -105,7 +118,8 @@ app.get('/users/results', function(req, res){
     parseString(body, function(err, data) {
     var bart = data.root; 
     var leg = bart.schedule[0].request[0].trip[3].leg;
-      res.render('results', {bart:bart, leg:leg});
+    var user = req.user;
+      res.render('results', {bart:bart, leg:leg, user:user});
     });
   });
 });
@@ -142,13 +156,13 @@ app.delete('/routes/:id', function(req, res) {
 });
 
 
-//For JSON visual display purposes. Change URL to see particular API
-// app.get('/parse', function(req, res){
-//   var url = "http://api.bart.gov/api/sched.aspx?cmd=depart&orig=ASHB&dest=CIVC&date=now&key=MW9S-E7SL-26DU-VV8V&b=2&a=2&l=1";
-//   request(url, function (err,response, body) {
-//     parseString(body, function(err, data) { 
-//       console.log(data);
-//       res.send(data);
-//     });
-//   });
-// });
+// For JSON visual display purposes. Change URL to see particular API
+app.get('/parse', function(req, res){
+  var url = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=MW9S-E7SL-26DU-VV8V&date=today";
+  request(url, function (err,response, body) {
+    parseString(body, function(err, data) { 
+      console.log(data);
+      res.send(data);
+    });
+  });
+});

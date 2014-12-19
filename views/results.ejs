@@ -4,47 +4,39 @@
 
 <style>
 
+body {
+	font-family: verdana;
+}
 div {
 	float:left;
-	border: black solid 2px;
+	border: black solid 5px;
 	border-radius: 10px;
 	margin: 10px;
 	padding: 10px;
-
-
+}
+h1 {
+	color: red;
 }
 
 </style>
+	
 	<title>Bart Results</title>
 
 </head>
 <body>
-<p>Date: <%=bart.schedule[0].date[0]%></p>
-<p>Time: <%=bart.schedule[0].time[0]%></p>
-<p>Origin: <%=bart.schedule[0].request[0].trip[3].$.origin%></p>
-<p>Destination: <%=bart.schedule[0].request[0].trip[3].$.destination%></p>
-<p>Fare: <%=bart.schedule[0].request[0].trip[3].$.fare%></p>
-
-<div>
-<p>Origin: <%=leg[0].$.origin%></p>
-<p><%=leg[0].$.origTimeMin%></p>
-<p>Destination: <%=leg[0].$.destination%></p>
-<p><%=leg[0].$.destTimeMin%></p>
-<p>Train: <%=leg[0].$.trainHeadStation%></p>
-</div>
-
+<a href= '/'>Go Back</a>
+<h2>Next Available Train </h2>
+<br><h2>Date: <%=bart.schedule[0].date[0]%>
+<br>Time: <%=bart.schedule[0].time[0]%>
+<br>Origin: <%=bart.schedule[0].request[0].trip[3].$.origin%>
+<br>Destination: <%=bart.schedule[0].request[0].trip[3].$.destination%>
+<br>Fare: <%=bart.schedule[0].request[0].trip[3].$.fare%></h2>
+<br>
 <% if(leg[1]) {%>
-<div>
-<p>Origin: <%=leg[1].$.origin%></p>
-<p><%=leg[1].$.origTimeMin%></p>
-<p>Destination: <%=leg[1].$.destination%></p>
-<p><%=leg[1].$.destTimeMin%></p>
-<p>Train: <%=leg[1].$.trainHeadStation%></p>
-</div>
-
+<h1> *Please note a transfer train is necessary to reach destination.*</h1>
 <%} %>
-<p>
 
+<%if (user) {%>
 <div>
 	<form action="/routes/create" method="POST">
 		<input type="hidden" name="origin" value="<%=bart.schedule[0].request[0].trip[3].$.origin%>">
@@ -53,5 +45,30 @@ div {
 		<input type="submit" value="Save Route">
 	</form>
 </div>
+<%} %>
+
+<div>
+<br><h2>Origin: <%=leg[0].$.origin%>
+<br><%=leg[0].$.origTimeMin%>
+<br>Destination: <%=leg[0].$.destination%>
+<br><%=leg[0].$.destTimeMin%>
+<br>Train: <%=leg[0].$.trainHeadStation%></h2>
+</div>
+
+<% if(leg[1]) {%>
+<div>
+<br><h2>Origin: <%=leg[1].$.origin%>
+<br><%=leg[1].$.origTimeMin%>
+<br>Destination: <%=leg[1].$.destination%>
+<br><%=leg[1].$.destTimeMin%>
+<br>Train: <%=leg[1].$.trainHeadStation%></h2>
+</div>
+
+<%} %>
+<p>
+
+
+
+
 </body>
 </html>
