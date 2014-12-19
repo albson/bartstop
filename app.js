@@ -70,9 +70,6 @@ passport.use(localStrategy);
 // })
 
 app.get('/', function(req, res){
-  if (req.user) {
-    login()
-  }
 
   var url='http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=MW9S-E7SL-26DU-VV8V&date=today';
   request(url, function (err,response, body) {
