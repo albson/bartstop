@@ -37,7 +37,7 @@ body { margin-top:30px;}
                <a class="navbar-brand" href="/">Welcome to BARTStop, <%=user.username %> </a>
                <%} %>
                <% if(user) { %>
-               <a class="navbar-brand" href="/users/profile">Favorite Routes </a>
+               <a class="navbar-brand" href="/users/<%=user.id%>">Favorite Routes </a>
                <%} %>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->

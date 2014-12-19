@@ -83,16 +83,16 @@ app.get('/', function(req, res){
 
 
 app.get('/users/new', function(req,res) {
-	res.render('users/new');
+  res.render('users/new');
 })
 
 
 app.post('/users', function(req, res) {
-	db.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3)', [req.body.username, req.body.email, req.body.password], function(err, dbRes) {
-		if (!err) {
-		res.redirect('/');
-		}
-	})
+  db.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3)', [req.body.username, req.body.email, req.body.password], function(err, dbRes) {
+    if (!err) {
+    res.redirect('/');
+    }
+  })
 })
 
 
@@ -106,8 +106,8 @@ app.post('/users/sessions', passport.authenticate('local',
 });
 
 app.delete('/users/sessions', function(req, res) {
-	req.logout();
-	res.redirect('/');
+  req.logout();
+  res.redirect('/');
 });
 
 app.get('/results', function(req, res){
@@ -125,12 +125,11 @@ app.get('/results', function(req, res){
 });
 
 
-app.get('/users/profile', function(req,res){
-  console.log(req.user)
-  var user= req.user
+app.get('/users/:id', function(req,res){
+  
   db.query('SELECT * FROM routes WHERE user_id = $1', [req.user.id], function(err,dbRes){
     if(!err) {
-      res.render('profile', {user:user, routes: dbRes.rows})
+      res.render('profile', {user:req.user, routes: dbRes.rows})
     }
     })
 })
@@ -138,7 +137,7 @@ app.get('/users/profile', function(req,res){
 app.post('/routes', function(req, res) {
   db.query('INSERT INTO routes (origin, destination, user_id) VALUES ($1, $2, $3)', [req.body.origin, req.body.destination, req.user.id], function(err, dbRes) {
     if (!err) {
-    res.redirect('/users/profile');
+    res.redirect('/users/' + req.user.id);
     }
     else {
       console.log(err)
@@ -147,10 +146,9 @@ app.post('/routes', function(req, res) {
 })
 
 app.delete('/routes/:id', function(req, res) {
-  console.log(req.params.id)
   db.query('DELETE FROM routes WHERE id = $1', [req.params.id], function(err, dbRes) {
     if (!err) {
-      res.redirect('/users/profile');
+      res.redirect('/users/' + req.user.id);
     }
   })
 });
