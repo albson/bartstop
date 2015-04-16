@@ -10,14 +10,14 @@
 <a href= '/'>Home Page</a>
 <br>
 
-<h1> Your Favorite Routes </h1>
+<h2> Your Favorite Routes </h2>
 <% for (var i=0; i < routes.length; i++) { %>
 <p>
-<h1><a href= "/results?origin=<%=routes[i].origin%>&destination=<%=routes[i].destination%>">
+<h2><a href= "/results?origin=<%=routes[i].origin%>&destination=<%=routes[i].destination%>">
 
 <%=routes[i].origin%> -
 <%=routes[i].destination%> Route
-</a></h1>
+</a></h2>
 
 	<form action="/routes/<%=routes[i].id%>?_method=DELETE" method="POST">
 		<input type="submit" value="Delete">
