@@ -108,7 +108,7 @@ app.get('/results', function(req, res){
   request(url, function (err,response, body) {
     parseString(body, function(err, data) {
     var bart = data.root; 
-    var leg = bart.schedule[0].request[0].trip[3].leg;
+    var leg = bart.schedule[0].request[0].trip[2].leg;
     var user = req.user;
       res.render('results', {bart:bart, leg:leg, user:user});
     });

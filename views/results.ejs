@@ -28,9 +28,9 @@ h1 {
 <h2>Next Available Train </h2>
 <br><h2>Date: <%=bart.schedule[0].date[0]%>
 <br>Time: <%=bart.schedule[0].time[0]%>
-<br>Origin: <%=bart.schedule[0].request[0].trip[3].$.origin%>
-<br>Destination: <%=bart.schedule[0].request[0].trip[3].$.destination%>
-<br>Fare: <%=bart.schedule[0].request[0].trip[3].$.fare%></h2>
+<br>Origin: <%=bart.schedule[0].request[0].trip[2].$.origin%>
+<br>Destination: <%=bart.schedule[0].request[0].trip[2].$.destination%>
+<br>Fare: <%=bart.schedule[0].request[0].trip[2].$.fare%></h2>
 <br>
 <% if(leg[1]) {%>
 <h1> *Please note a transfer train is necessary to reach destination.*</h1>
@@ -39,8 +39,8 @@ h1 {
 <%if (user) {%>
 <div>
 	<form action="/routes" method="POST">
-		<input type="hidden" name="origin" value="<%=bart.schedule[0].request[0].trip[3].$.origin%>">
-		<input type="hidden" name="destination" value="<%=bart.schedule[0].request[0].trip[3].$.destination%>">
+		<input type="hidden" name="origin" value="<%=bart.schedule[0].request[0].trip[2].$.origin%>">
+		<input type="hidden" name="destination" value="<%=bart.schedule[0].request[0].trip[2].$.destination%>">
 
 		<input type="submit" value="Save Route">
 	</form>
